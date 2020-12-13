@@ -4,3 +4,7 @@ key*
 /__pycache__/
 *.pyc
 *.log*
+.ropeproject/config.py
+objectdb
+settings.json
+.vscode/
