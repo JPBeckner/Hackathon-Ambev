@@ -21,5 +21,3 @@ class Cliente:
 
     def setCnpj(self, cnpj):
         self.__Cnpj = cnpj
-
-        

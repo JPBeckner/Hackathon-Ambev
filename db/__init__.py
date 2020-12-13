@@ -6,6 +6,7 @@ from .produto import ProdutoDAO
 from .produto_pedido import ProdutoPedidoDAO
 from .tipo_transporte import TipoTransporteDAO
 from .transporte import TransporteDAO
+from .dao import DaoConnectionFactory
 
 host = "localhost"
 user = "root"
@@ -15,5 +16,5 @@ port = 3306
 
 __all__ = [
     'ClienteDAO', 'CronogramaDAO', 'LocalEntregaDAO', 'PedidoDAO', 'ProdutoDAO', 'ProdutoPedidoDAO',
-    'TipoTransporteDAO', 'TransporteDAO', 'host', 'user', 'password', 'db_name', 'port'
+    'TipoTransporteDAO', 'TransporteDAO', 'DaoConnectionFactory', 'host', 'user', 'password', 'db_name', 'port'
 ]
