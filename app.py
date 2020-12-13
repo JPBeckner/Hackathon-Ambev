@@ -39,7 +39,7 @@ def index():
 
 @app.route("/login", methods=['GET'])
 def login():
-    proxima = request.args.get('proxima')
+    proxima = request.json.get('proxima')
     return render_template('login.html', proxima=proxima)
 
 
@@ -77,12 +77,14 @@ def dados_dashboard():
 def get_pedidos_do_dia():
     try:
         # cronogramas_hoje = Cronograma()
-        hoje = str(date.today())
-        pedido = PedidoDAO()
-        cronograma = CronogramaDAO()
+        data = request.json
+        if not data:
+            data = str(date.today())
+        pedido = PedidoDAO(_db)
+        cronograma = CronogramaDAO(_db)
         pedidos: list = []
-        cronogramas_por_data: list = cronograma.get_cronogramas_por_data(hoje)
-        _cronograma: dict
+        cronogramas_por_data: list = cronograma.get_cronogramas_por_data(data)
+        _cronograma: Cronograma
         for _cronograma in cronogramas_por_data:
             id_pedido: str = _cronograma.get('id')
             pedidos.append(pedido.busca_por_id(id_pedido))
