@@ -7,6 +7,7 @@ from .produto_pedido import ProdutoPedidoDAO
 from .tipo_transporte import TipoTransporteDAO
 from .transporte import TransporteDAO
 from .dao import DaoConnectionFactory
+from .BaseDAO import BaseDAO
 
 host = "localhost"
 user = "root"
