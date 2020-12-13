@@ -3,3 +3,4 @@ Pipfile.lock
 key*
 /__pycache__/
 *.pyc
+*.log*
