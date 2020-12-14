@@ -8,7 +8,7 @@ class ClienteDAO(BaseDAO):
     TABLE = "Cliente"
     COLUMNS = "id_cliente, razao_social, cnpj"
 
-    def __init__(self, conn: DaoConnectionFactory.get_connection):
+    def __init__(self, conn: DaoConnectionFactory):
         super().__init__(conn)
 
     @property

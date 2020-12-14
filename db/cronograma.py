@@ -8,9 +8,9 @@ class CronogramaDAO(BaseDAO):
     TABLE = "Cronograma"
     COLUMNS = "id_cronograma, quantidade, data_saida, data_entrega, id_transporte, id_local_entrega, id_pedido"
 
-    def __init__(self, conn: DaoConnectionFactory.get_connection):
+    def __init__(self, conn: DaoConnectionFactory):
         super().__init__(conn)
-    
+
     def executa_query(self, query: str):
         list_return = []
         for tupla in super().executa_query(query):

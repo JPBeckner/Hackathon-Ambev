@@ -8,7 +8,7 @@ class PedidoDAO(BaseDAO):
     TABLE = "Pedido"
     COLUMNS = "id_pedido, NFe"
 
-    def __init__(self, conn: DaoConnectionFactory.get_connection):
+    def __init__(self, conn: DaoConnectionFactory):
         super().__init__(conn)
 
     def executa_query(self, query: str):

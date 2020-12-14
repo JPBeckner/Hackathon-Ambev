@@ -7,7 +7,7 @@ class ProdutoPedidoDAO(BaseDAO):
     TABLE = "Produto_Pedido"
     COLUMNS = "idProduto_Pedido, id_produto, id_pedido, quantidade"
 
-    def __init__(self, conn: DaoConnectionFactory.get_connection):
+    def __init__(self, conn: DaoConnectionFactory):
         super().__init__(conn)
 
     def executa_query(self, query: str):
