@@ -11,6 +11,10 @@ class PedidoDAO(BaseDAO):
     def __init__(self, conn: DaoConnectionFactory):
         super().__init__(conn)
 
+    def busca_por_id(self, id_pedido: str):
+        query = f"SELECT {self.COLUMNS} FROM {self.TABLE} WHERE id_pedido = {id_pedido}"
+        return self.executa_query(query)
+
     def executa_query(self, query: str):
         list_return = []
         for tupla in super().executa_query(query):
