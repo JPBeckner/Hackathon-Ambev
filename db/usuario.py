@@ -5,14 +5,14 @@ from models import Usuario
 
 class UsuarioDAO(BaseDAO):
 
-    TABLE = "Cliente"
-    COLUMNS = "id_cliente, razao_social, cnpj"
+    TABLE = "Usuario"
+    COLUMNS = ""
 
     def __init__(self, conn: DaoConnectionFactory):
         super().__init__(conn)
 
-    def clientes(self):
-        query = f"SELECT {self.COLUMNS} FROM {self.TABLE}"
+    def buscar_por_id(self, usuario: str):
+        query = f"SELECT {self.COLUMNS} FROM {self.TABLE} WHERE id_usuario == {usuario}"
         return self.executa_query(query)
 
     def executa_query(self, query: str):
