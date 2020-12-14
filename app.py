@@ -6,9 +6,6 @@ from flask import (
     Flask, request, make_response, jsonify, render_template,
     redirect, flash, session, url_for, Markup
 )
-from flask_mysqldb import MySQL
-from plotly.offline import plot
-from plotly.graph_objs import Scatter
 
 from db import *
 from log import Logger
@@ -62,12 +59,11 @@ def auth():
 @app.route("/dados_dashboard", methods=['GET'])
 def dados_dashboard():
     try:
-        # gráficos:
-        # frota
-        # subprodutos
-        # comparativode lucros
-        my_plot_div = plot([Scatter(x=[1, 2, 3], y=[3, 1, 6])], output_type='div')
-        return render_template('teste.html', div_placeholder=Markup(my_plot_div))
+        graph_data_dashboard = {
+            'pedidos': {},
+            '': {}
+        }
+        return
     except Exception as exc:
         log.logger.exception("Erro ao carregar dados do dashboard.", exc_info=exc)
         return make_response(jsonify({"erro": "Houve um problema para carregar os dados."}))
@@ -118,11 +114,12 @@ def liberar_pedido():
     try:
         # request_body: dict = loads(request.data)
         # jogo_id = request_body.get('request_id')
-        jogo_id = request.form.get('pedido_id')
-        if not jogo_id:
+        pedido_id = request.form.get('pedido_id')
+        if not pedido_id:
             return make_response(jsonify({'erro': 'Códigodo pedido não informado.'}), 406)
 
-        pedido = Pedido(jogo_id)
+        pedido = Pedido(pedido_id)
+        produto_pedido = ProdutoPedidoDAO(_db)
         liberado = ProdutoPedido.liberar_pedido(pedido)
         if not liberado:
             return make_response(jsonify({'erro': 'Erro ao liberar o pedido.'}), 500)
