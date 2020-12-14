@@ -1,6 +1,9 @@
 from .dao import DaoConnectionFactory
-from .dao import BaseDAO
-class ProdutoPedidoDAO:
+from .base_dao import BaseDAO
 
-    def __init__(self, Conn: DaoConnectionFactory):
-        super().__init__(Conn)
+
+class ProdutoPedidoDAO(BaseDAO):
+
+    def __init__(self, conn: DaoConnectionFactory.get_connection):
+        super().__init__(conn)
+        pass
