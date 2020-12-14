@@ -62,14 +62,18 @@ def dados_dashboard():
             'sub_protudos': subprodutos,
             'comparativo_lucro': comparativo_lucro
         }
+        data = str(date.today())
 
         # frota
         transporte = Transporte()
         transporte_dao = TransporteDAO(_db)
-        
-        fortas_do_dia = transporte_dao.get
+        cronograma = Cronograma()
+        cronograma_dao = CronogramaDAO(_db)
+        frotas_do_dia: list = cronograma_dao.get_cronogramas_por_data(date)
+        frota = [{'status': f.setStatus} for f in frotas_do_dia]
+        graph_data_dashboard.update({'frota': frota})
 
-        return
+        return make_response(jsonify(graph_data_dashboard), 200)
     except Exception as exc:
         log.logger.exception("Erro ao carregar dados do dashboard.", exc_info=exc)
         return make_response(jsonify({"erro": "Houve um problema para carregar os dados."}))
