@@ -47,13 +47,11 @@ def auth():
     if not cliente:
         flash('Não logado, tente denovo!')
         return redirect(url_for('login'))
-    # if usuario:
     if cliente.senha == request.form['senha']:
         session['usuario_logado'] = cliente.id
         flash(f"{cliente.nome} logado com sucesso.")
         proxima_pagina = request.form['proxima']
         return redirect(proxima_pagina)
-    # else:
 
 
 @app.route("/dados_dashboard", methods=['GET'])

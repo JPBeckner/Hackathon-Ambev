@@ -1,22 +1,24 @@
 from .dao import DaoConnectionFactory
-from .dao import BaseDAO
-from models import Pedido, pedido
-class PedidoDAO:
-    
-   TABLE = "Pedido"
-   COLUMNS = "id_pedido, NFe"
+from .base_dao import BaseDAO
+from models import Pedido
 
-   def __init__(self, Conn: DaoConnectionFactory):
-        super().__init__(Conn)
-    
-   def executa_query(self, sQuery: str):
-      listReturn = []
-      for tupla in super().executa_query(self, sQuery):
-         pedido = Pedido()
-         
-         pedido.setIdPedido(pedido[0])
-         pedido.setNfe(pedido[1])
-         
-         listReturn.append(pedido)
-            
-      return listReturn
+
+class PedidoDAO(BaseDAO):
+
+    TABLE = "Pedido"
+    COLUMNS = "id_pedido, NFe"
+
+    def __init__(self, conn: DaoConnectionFactory.get_connection):
+        super().__init__(conn)
+
+    def executa_query(self, query: str):
+        list_return = []
+        for tupla in super().executa_query(query):
+            pedido = Pedido()
+
+            pedido.setIdPedido(tupla[0])
+            pedido.setNfe(tupla[1])
+
+            list_return.append(pedido)
+
+        return list_return
