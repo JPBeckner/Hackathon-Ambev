@@ -29,7 +29,7 @@ class CronogramaDAO(BaseDAO):
         return total_sum
     
     def getCodProdQuantidade(self, dateToSearch):      
-        sQuery = f"SELECT Produto.descricao, Cronograma.quantidade, Cronograma.id_pedido FROM (Cronograma INNER JOIN Produto ON Cronograma.id_produto = Produto.id_produto)"
+        sQuery = f"SELECT Produto.descricao, Cronograma.quantidade, Cronograma.id_pedido FROM (Cronograma INNER JOIN Produto ON Cronograma.id_produto = Produto.id_produto) WHERE data_saida = {dateToSearch}"
         
         listToReturn = []
         
