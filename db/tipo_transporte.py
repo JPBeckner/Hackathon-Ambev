@@ -1,12 +1,12 @@
 from .dao import DaoConnectionFactory
-from .dao import BaseDAO
+from .base_dao import BaseDAO
 from models import TipoTransporte
-class TipoTransporteDAO:
+class TipoTransporteDAO(BaseDAO):
 
    TABLE = "Tipo_Transporte"
    COLUMNS = "id_Tipo_Transporte, tipo, descricao"
 
-   def __init__(self, Conn: DaoConnectionFactory):
+   def __init__(self, Conn: DaoConnectionFactory.get_connection):
         super().__init__(Conn)
     
    def executa_query(self, sQuery: str):

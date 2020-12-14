@@ -1,12 +1,12 @@
 from .dao import DaoConnectionFactory
-from .dao import BaseDAO
+from .base_dao import BaseDAO
 from models import Produto
-class ProdutoDAO:
+class ProdutoDAO(BaseDAO):
 
    TABLE = "Produto"
    COLUMNS = "id_produto, descricao, preco"
 
-   def __init__(self, Conn: DaoConnectionFactory):
+   def __init__(self, Conn: DaoConnectionFactory.get_connection):
         super().__init__(Conn)
     
    def executa_query(self, sQuery: str):

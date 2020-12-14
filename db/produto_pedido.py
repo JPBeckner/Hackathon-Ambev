@@ -1,22 +1,12 @@
 from .dao import DaoConnectionFactory
-<<<<<<< Updated upstream
 from .base_dao import BaseDAO
-
-
-class ProdutoPedidoDAO(BaseDAO):
-
-    def __init__(self, conn: DaoConnectionFactory.get_connection):
-        super().__init__(conn)
-        pass
-=======
-from .dao import BaseDAO
 from models import ProdutoPedido
-class ProdutoPedidoDAO:
+class ProdutoPedidoDAO(BaseDAO):
 
    TABLE = "Produto_Pedido"
    COLUMNS = "idProduto_Pedido, id_produto, id_pedido, quantidade"
 
-   def __init__(self, Conn: DaoConnectionFactory):
+   def __init__(self, Conn: DaoConnectionFactory.get_connection):
         super().__init__(Conn)
     
    def executa_query(self, sQuery: str):
@@ -32,4 +22,3 @@ class ProdutoPedidoDAO:
          listReturn.append(produto_pedido)
             
       return listReturn
->>>>>>> Stashed changes

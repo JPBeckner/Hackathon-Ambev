@@ -1,12 +1,12 @@
 from .dao import DaoConnectionFactory
 from .dao import BaseDAO
 from models import Cronograma
-class CronogramaDAO:
+class CronogramaDAO(BaseDAO):
     
     TABLE = "Cronograma"
     COLUMNS = "id_cronograma, quantidade, data_saida, data_entrega, id_transporte, id_local_entrega, id_pedido"
 
-    def __init__(self, Conn: DaoConnectionFactory):
+    def __init__(self, Conn: DaoConnectionFactory.get_connection):
         super().__init__(Conn)
     
     def executa_query(self, sQuery: str):

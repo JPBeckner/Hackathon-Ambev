@@ -1,12 +1,12 @@
 from .dao import DaoConnectionFactory
-from .BaseDAO import BaseDAO
+from .base_dao import BaseDAO
 from models import LocalEntrega
-class LocalEntregaDAO:
+class LocalEntregaDAO(BaseDAO):
 
    TABLE = "Local_Enterga"
    COLUMNS = "id_local_entrega, codigo, descricao, endereco, id_cliente"
 
-   def __init__(self, Conn: DaoConnectionFactory):
+   def __init__(self, Conn: DaoConnectionFactory.get_connection):
         super().__init__(Conn)
     
    def executa_query(self, sQuery: str):
