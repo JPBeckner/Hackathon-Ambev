@@ -18,38 +18,35 @@ _db = DaoConnectionFactory.get_connection()
 
 log = Logger()
 
-# TODO:
-#   links: https://towardsdatascience.com/build-a-web-data-dashboard-in-just-minutes-with-python-d722076aee2b
-
-
-@app.route("/teste", methods=['GET'])
-def teste():
-    log.logger.info("[GET] </teste>")
-    log.logger.info("Log do método do endpoint de teste.")
-    return make_response(jsonify({'teste': 'Sucesso'}), 200)
-
-
-@app.route("/")
-def index():
-    return render_template('index.html')
-
-
-@app.route("/login", methods=['GET'])
-def login():
-    proxima = request.json.get('proxima')
-    return render_template('login.html', proxima=proxima)
+# @app.route("/teste", methods=['GET'])
+# def teste():
+#     log.logger.info("[GET] </teste>")
+#     log.logger.info("Log do método do endpoint de teste.")
+#     return make_response(jsonify({'teste': 'Sucesso'}), 200)
+#
+#
+# @app.route("/")
+# def index():
+#     return render_template('index.html')
+#
+#
+# @app.route("/login", methods=['GET'])
+# def login():
+#     proxima = request.json.get('proxima')
+#     return render_template('login.html', proxima=proxima)
 
 
 @app.route("/auth", methods=['POST'])
 def auth():
-    cliente_dao = ClienteDAO(_db)
-    cliente = cliente_dao.buscar_por_id(request.form['usuario'])
-    if not cliente:
+    usuario_dao = UsuarioDAO(_db)
+    usuario = usuario_dao.buscar_por_id(request.form['usuario'])
+    if not usuario:
         flash('Não logado, tente denovo!')
         return redirect(url_for('login'))
-    if cliente.senha == request.form['senha']:
-        session['usuario_logado'] = cliente.id
-        flash(f"{cliente.nome} logado com sucesso.")
+
+    if usuario.senha == request.form['senha']:
+        session['usuario_logado'] = usuario.id
+        flash(f"{usuario.nome} logado com sucesso.")
         proxima_pagina = request.form['proxima']
         return redirect(proxima_pagina)
 
@@ -57,10 +54,20 @@ def auth():
 @app.route("/dados_dashboard", methods=['GET'])
 def dados_dashboard():
     try:
+        frota = {}
+        subprodutos = {}
+        comparativo_lucro = {}
         graph_data_dashboard = {
-            'pedidos': {},
-            '': {}
+            'frota': frota,
+            'sub_protudos': subprodutos,
+            'comparativo_lucro': comparativo_lucro
         }
+
+        # frota
+        transporte = Transporte()
+        transporte_dao = TransporteDAO(_db)
+        fortas_do_dia = transporte_dao
+
         return
     except Exception as exc:
         log.logger.exception("Erro ao carregar dados do dashboard.", exc_info=exc)
@@ -70,7 +77,6 @@ def dados_dashboard():
 @app.route("/pedidos-dia", methods=['POST'])
 def get_pedidos_do_dia():
     try:
-        # cronogramas_hoje = Cronograma()
         data = request.json
         if not data:
             data = str(date.today())
@@ -80,10 +86,16 @@ def get_pedidos_do_dia():
         cronogramas_por_data: list = cronograma.get_cronogramas_por_data(data)
         _cronograma: Cronograma
         for _cronograma in cronogramas_por_data:
-            id_pedido: str = _cronograma.get('id')
+            id_pedido: str = _cronograma.getIdPedido()
             pedidos.append(pedido.busca_por_id(id_pedido))
-        # dados_pedidos = Pedido()
-        return make_response(jsonify(pedido))
+
+        resposta_pedidos = {}
+        _pedido: Pedido
+        for _pedido in pedidos:
+            dados_pedido = {
+                _pedido
+            }
+        return make_response(jsonify(pedidos))
     except Exception as exc:
         log.logger.exception("Erro ao carregar pedidos.", exc_info=exc)
         return make_response(jsonify({"erro": "Houve um problema para carregar os pedidos do dia."}))
