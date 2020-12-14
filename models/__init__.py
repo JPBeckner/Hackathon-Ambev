@@ -6,7 +6,9 @@ from .produto import Produto
 from .produto_pedido import ProdutoPedido
 from .tipo_transporte import TipoTransporte
 from .transporte import Transporte
+from .usuario import Usuario
 
 __all__ = [
-    'Cliente', 'Cronograma', 'LocalEntrega', 'Pedido', 'Produto', 'ProdutoPedido', 'TipoTransporte', 'Transporte'
+    'Cliente', 'Cronograma', 'LocalEntrega', 'Pedido', 'Produto', 'ProdutoPedido', 'TipoTransporte',
+    'Transporte', 'Usuario'
 ]

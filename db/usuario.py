@@ -1,9 +1,9 @@
 from .dao import DaoConnectionFactory
 from .base_dao import BaseDAO
-from models import Cliente
+from models import Usuario
 
 
-class ClienteDAO(BaseDAO):
+class UsuarioDAO(BaseDAO):
 
     TABLE = "Cliente"
     COLUMNS = "id_cliente, razao_social, cnpj"
@@ -18,12 +18,12 @@ class ClienteDAO(BaseDAO):
     def executa_query(self, query: str):
         list_return = []
         for tupla in super().executa_query(query):
-            cliente = Cliente()
-            
-            cliente.setIdCliente = tupla[0]
-            cliente.setRazaoSocial = tupla[1]
-            cliente.setCnpj = tupla[2]
-            
-            list_return.append(cliente)
-            
+            usuario = Usuario()
+
+            usuario.setIdCliente = tupla[0]
+            usuario.setRazaoSocial = tupla[1]
+            usuario.setCnpj = tupla[2]
+
+            list_return.append(usuario)
+
         return list_return
