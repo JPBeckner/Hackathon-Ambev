@@ -66,7 +66,8 @@ def dados_dashboard():
         # frota
         transporte = Transporte()
         transporte_dao = TransporteDAO(_db)
-        fortas_do_dia = transporte_dao
+        
+        fortas_do_dia = transporte_dao.get
 
         return
     except Exception as exc:

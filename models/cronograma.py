@@ -44,4 +44,10 @@ class Cronograma:
         return self.__IdPedido
 
     def setIdPedido(self, IdPedido):
-        self.__IdPedido = IdPedido                               
+        self.__IdPedido = IdPedido
+
+    def getStatus(self):
+        return self.__Status
+
+    def setStatus(self, Status):
+        self.__Status = Status
